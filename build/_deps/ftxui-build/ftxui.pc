@@ -1,9 +1,0 @@
-prefix="C:/Program Files (x86)/boutique_tui"
-libdir="C:/Program Files (x86)/boutique_tui/lib"
-includedir="C:/Program Files (x86)/boutique_tui/include"
-
-Name: ftxui
-Description: 
-Version: 6.1.9
-Cflags: -I${includedir}
-Libs: -L${libdir} -lftxui-component -lftxui-dom -lftxui-screen
