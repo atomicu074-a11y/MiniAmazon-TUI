@@ -1,0 +1,3 @@
+C:/Users/HP/Downloads/desktop-tutorial-scr/build/_deps/ftxui-subbuild/CMakeFiles/ftxui-populate.dir
+C:/Users/HP/Downloads/desktop-tutorial-scr/build/_deps/ftxui-subbuild/CMakeFiles/edit_cache.dir
+C:/Users/HP/Downloads/desktop-tutorial-scr/build/_deps/ftxui-subbuild/CMakeFiles/rebuild_cache.dir

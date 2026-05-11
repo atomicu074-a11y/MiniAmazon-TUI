@@ -1,0 +1,10 @@
+{
+	"InstallScripts" : 
+	[
+		"C:/Users/HP/Downloads/desktop-tutorial-scr/build/cmake_install.cmake",
+		"C:/Users/HP/Downloads/desktop-tutorial-scr/build/_deps/ftxui-build/cmake_install.cmake",
+		"C:/Users/HP/Downloads/desktop-tutorial-scr/build/_deps/ftxui-build/examples/cmake_install.cmake",
+		"C:/Users/HP/Downloads/desktop-tutorial-scr/build/_deps/ftxui-build/doc/cmake_install.cmake"
+	],
+	"Parallel" : false
+}
