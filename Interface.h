@@ -17,7 +17,7 @@ private:
     ftxui::Element render_inventaire_screen();
     ftxui::Element render_stats_screen();
 
-    GEMA game_engine_;   
+    Magasin game_engine_;   
     Client heros_;          
     std::string message_;   
 
