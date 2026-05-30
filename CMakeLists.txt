@@ -16,7 +16,7 @@ FetchContent_MakeAvailable(ftxui)
 
 add_executable(combat_app 
     main.cpp 
-    GAME.cpp   # يمثل ملف المنطق البرمجي للعبة
+    GEMA.cpp   # يمثل ملف المنطق البرمجي للعبة
     Interface.cpp # ملف الواجهة الرسومية Text-based
 )
 
