@@ -6,7 +6,7 @@
 #include <string>
 #include <vector>
 
-#include "GAME.h" 
+#include "GEMA.h" 
 
 class Ui {
 public:
