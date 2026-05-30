@@ -5,24 +5,22 @@
 #include <ftxui/dom/elements.hpp>
 #include <string>
 #include <vector>
-
 #include "GEMA.h" 
 
 class Ui {
 public:
     Ui();
-
     void lancer();
 
 private:
-    ftxui::Element render_produits();      
-    ftxui::Element render_panier();         
-    ftxui::Element render_journal_combat();
+    ftxui::Element render_combat_screen();
+    ftxui::Element render_inventaire_screen();
+    ftxui::Element render_stats_screen();
 
-    void action_valider_commande();        
-    void verifier_et_ajouter(const ProduitElectronique& nouveau_produit);
-
+    GEMA game_engine_;   
+    Client heros_;          
     std::string message_;   
+
     ftxui::Color rose_;
     ftxui::Color mauve_;
     ftxui::Color bleu_doux_;
