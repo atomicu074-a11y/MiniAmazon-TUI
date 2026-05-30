@@ -1,30 +1,36 @@
 #ifndef INTERFACE_H
 #define INTERFACE_H
 
-#include "Magasin.h"
 #include <ftxui/component/component.hpp>
 #include <ftxui/dom/elements.hpp>
+#include <string>
+#include <vector>
+
+#include "GAME.h" 
 
 class Ui {
 public:
     Ui();
+
     void lancer();
 
 private:
-    // Méthodes de rendu
-    ftxui::Element render_produits();
-    ftxui::Element render_panier();
-    ftxui::Element render_historique();
-    void action_valider_commande();
+    ftxui::Element render_produits();      
+    ftxui::Element render_panier();         
+    ftxui::Element render_journal_combat();
 
-    // Données du magasin
-  Magasin magasin_;
-    Client client_;
-    std::string message_;
+    void action_valider_commande();        
+    void verifier_et_ajouter(const ProduitElectronique& nouveau_produit);
 
-    // Palette de couleurs complète
-    ftxui::Color rose_, mauve_, bleu_doux_, vert_clair_;
-    ftxui::Color fond_, surface_, alerte_, accent_, texte_gris_;
+    std::string message_;   
+    ftxui::Color rose_;
+    ftxui::Color mauve_;
+    ftxui::Color bleu_doux_;
+    ftxui::Color vert_clair_;
+    ftxui::Color fond_;
+    ftxui::Color surface_;
+    ftxui::Color alerte_;
+    ftxui::Color accent_;
 };
 
-#endif
+#endif // INTERFACE_H
