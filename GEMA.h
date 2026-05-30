@@ -1,9 +1,9 @@
 #ifndef GEMA_H
 #define GEMA_H
 
+
 #include <string>
 #include <vector>
-
 
 class Personnage {
 public:
@@ -20,7 +20,6 @@ public:
     int vit() const { return vit_; }
     
     virtual double get_resistance_feu() const { return resistance_feu_; }
-    virtual double get_resistance_glace() const { return resistance_glace_; }
 
     bool est_vivant() const { return pv_actuels_ > 0; }
     
@@ -44,12 +43,8 @@ protected:
     int atk_;
     int def_;
     int vit_;
-    
-    double resistance_feu_ = 1.0;
-    double resistance_glace_ = 1.0;
+    double resistance_feu_ = 1.0; 
 };
-
-
 
 class Guerrier : public Personnage {
 public:
@@ -65,7 +60,6 @@ public:
     void lancer_magie(Personnage& cible, std::string& log) override;
 };
 
-
 class Monstre : public Personnage {
 public:
     Monstre(std::string nom, int pv, int atk, int def, int vit, double res_feu);
@@ -73,59 +67,39 @@ public:
     void lancer_magie(Personnage& cible, std::string& log) override;
 };
 
-
-struct Ligne {
-    int produit_id; 
+struct ElementInventaire {
+    std::string nom_objet;
     int quantite;
 };
 
-class Panier {
+class Inventaire {
 public:
-    void vider();
-    bool vide() const;
-    std::vector<Ligne>& lignes() { return lignes_; }
-    const std::vector<Ligne>& lignes() const { return lignes_; }
-
+    void vider() { items_.clear(); }
+    bool vide() const { return items_.empty(); }
+    std::vector<ElementInventaire>& items() { return items_; }
 private:
-    std::vector<Ligne> lignes_;
+    std::vector<ElementInventaire> items_;
 };
 
-struct DetailPrix {
-    double sous_total;
-    double remise;
-    double tva;
-    double total_ttc;
-};
-
-
-class Magasin {
+class Magasin { 
 public:
     Magasin();
-    
-    std::vector<Monstre>& produits() { return produits_; }
-    const std::vector<Monstre>& produits() const { return produits_; }
-    
-    const Personnage* trouver(int id) const;
-    
+    std::vector<Monstre>& monstres() { return monstres_; }
     void executer_tour_ennemi(Personnage& heros, std::string& log);
-    void ajouter_au_inventaire(Panier& inv, int id_objet, int qte, std::string& msg);
-    void sauvegarder_journal(const std::string& texte);
-    
-    DetailPrix calculer_prix(const Panier& p) {
-        return {100.0, 0.0, 20.0, 120.0}; 
-    }
-
 private:
-    std::vector<Monstre> produits_;  
-    int indice_ennemi_actif_;       
+    std::vector<Monstre> monstres_;
+    int indice_monstre_actif_;
 };
 
-class Client : public Guerrier {
+class Client : public Personnage {
 public:
-    explicit Client(std::string nom) : Guerrier(nom) {}
-    Panier& panier() { return inventaire_; }
+    Client(std::string nom, std::string classe_choisie);
+    void attaquer(Personnage& cible, std::string& log) override;
+    void lancer_magie(Personnage& cible, std::string& log) override;
+    Inventaire& inventaire() { return inventaire_; }
 private:
-Panier inventaire_;
+    Inventaire inventaire_;
+    std::string classe_;
 };
 
 #endif 
