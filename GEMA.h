@@ -5,16 +5,19 @@
 #include <string>
 #include <vector>
 
+
 class Personnage {
 public:
-    Personnage(std::string nom, int pv, int atk, int def, int vit)
-        : nom_(nom), pv_max_(pv), pv_actuels_(pv), atk_(atk), def_(def), vit_(vit) {}
+    Personnage(std::string nom, int pv, int mp, int atk, int def, int vit)
+        : nom_(nom), pv_max_(pv), pv_actuels_(pv), mp_max_(mp), mp_actuels_(mp), atk_(atk), def_(def), vit_(vit) {}
         
     virtual ~Personnage() = default;
 
     std::string nom() const { return nom_; }
     int pv_actuels() const { return pv_actuels_; }
     int pv_max() const { return pv_max_; }
+    int mp_actuels() const { return mp_actuels_; }
+    int mp_max() const { return mp_max_; }
     int atk() const { return atk_; }
     int def() const { return def_; }
     int vit() const { return vit_; }
@@ -33,24 +36,35 @@ public:
         if (pv_actuels_ > pv_max_) pv_actuels_ = pv_max_;
     }
 
+    void utiliser_mp(int quantite) {
+        mp_actuels_ -= quantite;
+        if (mp_actuels_ < 0) mp_actuels_ = 0;
+    }
+
+
     virtual void attaquer(Personnage& cible, std::string& log) = 0;
     virtual void lancer_magie(Personnage& cible, std::string& log) = 0;
+    virtual void executer_coups_special(Personnage& cible, std::string& log) = 0;
 
 protected:
     std::string nom_;
     int pv_max_;
     int pv_actuels_;
+    int mp_max_;
+    int mp_actuels_;
     int atk_;
     int def_;
     int vit_;
-    double resistance_feu_ = 1.0; 
+    double resistance_feu_ = 1.0;
 };
+
 
 class Guerrier : public Personnage {
 public:
     explicit Guerrier(std::string nom);
     void attaquer(Personnage& cible, std::string& log) override;
     void lancer_magie(Personnage& cible, std::string& log) override;
+    void executer_coups_special(Personnage& cible, std::string& log) override;
 };
 
 class Mage : public Personnage {
@@ -58,6 +72,15 @@ public:
     explicit Mage(std::string nom);
     void attaquer(Personnage& cible, std::string& log) override;
     void lancer_magie(Personnage& cible, std::string& log) override;
+    void executer_coups_special(Personnage& cible, std::string& log) override;
+};
+
+class Archer : public Personnage {
+public:
+    explicit Archer(std::string nom);
+    void attaquer(Personnage& cible, std::string& log) override;
+    void lancer_magie(Personnage& cible, std::string& log) override;
+    void executer_coups_special(Personnage& cible, std::string& log) override;
 };
 
 class Monstre : public Personnage {
@@ -65,6 +88,7 @@ public:
     Monstre(std::string nom, int pv, int atk, int def, int vit, double res_feu);
     void attaquer(Personnage& cible, std::string& log) override;
     void lancer_magie(Personnage& cible, std::string& log) override;
+    void executer_coups_special(Personnage& cible, std::string& log) override {}
 };
 
 struct ElementInventaire {
@@ -81,7 +105,7 @@ private:
     std::vector<ElementInventaire> items_;
 };
 
-class Magasin { 
+class Magasin {
 public:
     Magasin();
     std::vector<Monstre>& monstres() { return monstres_; }
@@ -96,10 +120,11 @@ public:
     Client(std::string nom, std::string classe_choisie);
     void attaquer(Personnage& cible, std::string& log) override;
     void lancer_magie(Personnage& cible, std::string& log) override;
+    void executer_coups_special(Personnage& cible, std::string& log) override;
     Inventaire& inventaire() { return inventaire_; }
 private:
     Inventaire inventaire_;
     std::string classe_;
 };
 
-#endif 
+#endif // MAGASIN_H
